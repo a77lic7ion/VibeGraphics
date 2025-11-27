@@ -339,30 +339,25 @@ def veo_generate_video(
     negative_prompt: str = "",
     out_dir: str = ".",
     model: str = "veo-3.1-generate-preview",
-    image_path: Optional[str] = None,
-    aspect_ratio: Optional[str] = None,  # e.g. "16:9" or "9:16"
-    resolution: Optional[str] = None,    # e.g. "720p" or "1080p" (16:9 only)
-    seed: Optional[int] = None,
+    image_path: str | None = None,   # pass a still to animate
+    aspect_ratio: str | None = None, # e.g. "16:9" or "9:16"
+    resolution: str | None = None,   # e.g. "720p" or "1080p" (16:9 only)
+    seed: int | None = None,         # small determinism bump
     poll_seconds: int = 8,
     max_wait_seconds: int = 900,
 ) -> Dict[str, Any]:
     """
-    Generate a video using Veo 3.
+    Generate a video using Veo 3.1.
 
-    Args:
-      prompt: Main video-generation prompt.
-      negative_prompt: Optional negative guidance.
-      out_dir: Directory for saving the generated .mp4 files.
-      model: Veo model name.
-      image_path: Optional still image to animate (image-conditioned generation).
-      aspect_ratio: Aspect ratio string, e.g. "16:9" or "9:16".
-      resolution: Resolution, e.g. "720p" or "1080p" (only for 16:9 currently).
-      seed: Optional seed for slight determinism bump.
-      poll_seconds: Poll frequency for the operation.
-      max_wait_seconds: Max total wait time.
+    - Uses the same polling pattern as your working Veo MCP tool.
+    - Downloads the remote video file before saving it locally.
     """
-    if genai is None or gtypes is None or mimetypes is None:
-        return {"ok": False, "error": "google-genai not installed"}
+    try:
+        from google import genai
+        from google.genai import types as gtypes
+        import mimetypes
+    except Exception as e:
+        return {"ok": False, "error": f"google-genai not installed: {e}"}
 
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
@@ -401,7 +396,7 @@ def veo_generate_video(
     except Exception as e:
         return {"ok": False, "error": f"veo start failed: {e}"}
 
-    # Poll until finished
+    # Poll until finished – IMPORTANT: use `op`, not `op.name`
     waited = 0
     try:
         while not op.done:
@@ -409,30 +404,27 @@ def veo_generate_video(
                 return {"ok": False, "error": f"timeout after {max_wait_seconds}s"}
             time.sleep(max(1, int(poll_seconds)))
             waited += poll_seconds
-            # In the new client, you pass the operation's name to get status
-            op = client.operations.get(op.name)
+            op = client.operations.get(op)
     except Exception as e:
         return {"ok": False, "error": f"veo poll failed: {e}"}
 
     # Grab generated videos
-    vids = getattr(op.response, "generated_videos", []) or []
+    # (your other project uses `operation.result.generated_videos`)
+    vids = getattr(getattr(op, "result", op), "generated_videos", []) or []
     if not vids:
         return {"ok": False, "error": "no videos in response"}
 
-    saved: List[str] = []
+    saved: list[str] = []
     for idx, gv in enumerate(vids):
         try:
-            # Download the remote video file
-            dl = client.files.download(file=gv.video)
-            data = dl.read()  # file-like object
+            # Download the remote file so `.save()` works
+            client.files.download(file=gv.video)
 
             ts = time.strftime("%Y%m%d_%H%M%S")
             ms = int((time.time() % 1) * 1000)
             fpath = out_dir_p / f"veo_{ts}_{ms:03d}_{idx:02d}.mp4"
 
-            with open(fpath, "wb") as f:
-                f.write(data)
-
+            gv.video.save(str(fpath))
             saved.append(str(fpath))
             log.info("Veo video saved: %s", fpath)
         except Exception as e:
