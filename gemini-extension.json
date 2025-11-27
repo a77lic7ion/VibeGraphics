@@ -1,0 +1,13 @@
+{
+  "name": "vibegraphics",
+  "version": "1.0.0",
+  "description": "Generate VibeGraphics (AI augmented Infographics) with your GitHub repository; Nano Banana; and Veo3",
+  "mcpServers": {
+    "vibeGraphics": {
+      "command": "bash",
+      "args": ["${extensionPath}${/}servers${/}run.sh"]
+    }
+  },
+  "contextFileName": "GEMINI.md",
+  "excludeTools": []
+}

@@ -1,0 +1,22 @@
+name = "/vibe:image"
+description = "Render the VibeGraphic static infographic from a spec JSON using nano banana."
+prompt = """
+You are wired into the VibeGraphics MCP server.
+
+Flow:
+
+1) Ask the user for:
+   - spec_path (JSON produced by `vibe_plan_infographic`).
+
+2) Call `vibe_render_image_from_spec` with:
+   - spec_path = what they provide
+   - out_dir = a reasonable directory (e.g. current working directory or the one they request)
+   - model = "gemini-2.5-flash-image-preview"
+   - n = 1 unless they ask for more images
+
+3) Show the user:
+   - Generated image path(s).
+   - Confirm that the image was generated using the cartographer VibeGraphic prompt from the spec.
+
+If the spec is missing `imagePrompt`, explain what went wrong and suggest re-running `/vibe:plan`.
+"""

@@ -1,0 +1,25 @@
+name = "vibe:animate"
+description = "Animate an existing VibeGraphic image using Veo 3."
+prompt = """
+You are wired into the VibeGraphics MCP server.
+
+Flow:
+
+1) Ask the user for:
+   - spec_path (VibeGraphic spec from `vibe_plan_infographic`)
+   - image_path (path to the static infographic, typically from `/vibe:image`)
+
+2) Call `vibe_animate_from_spec` with:
+   - spec_path = as given
+   - image_path = as given
+   - model = "veo-3.1-generate-preview"
+   - aspect_ratio = "16:9" unless user specifies otherwise
+   - resolution = "1080p" unless user asks for a different resolution
+
+3) Show:
+   - Generated video path(s).
+   - A short restatement of what the animation prompt did
+     (e.g., “slow camera drift over the parchment map, section callouts animating in, compass rose rotating subtly”).
+
+If `animationPrompt` is missing in the spec, suggest re-running `/vibe:plan`.
+"""

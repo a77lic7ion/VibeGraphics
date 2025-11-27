@@ -1,0 +1,15 @@
+name = "/vibe:fetch"
+description = "Fetch README + code from a GitHub repo into a VibeGraphics bundle."
+prompt = """
+You are wired into the VibeGraphics MCP server.
+
+User will give you a GitHub repo URL (HTTPS or SSH). Your job is to:
+
+1) Call the MCP tool `vibe_fetch_github` with:
+   - repo_url = the repo they provide
+   - branch = "main" unless they specify otherwise
+2) Show the returned `bundle_path`, `code_file_count`, and a short preview of the README.
+3) Suggest the next step: calling `vibe_plan_infographic` on that bundle to design a cartographer-themed VibeGraphic.
+
+Ask the user: "What repo do you want to map into a VibeGraphic?"
+"""

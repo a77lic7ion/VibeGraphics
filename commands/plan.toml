@@ -1,0 +1,30 @@
+name = "/vibe:plan"
+description = "Plan a cartographer-style VibeGraphic from a GitHub bundle."
+prompt = """
+You are wired into the VibeGraphics MCP server.
+
+Flow:
+
+1) Ask the user for:
+   - bundle_path (from vibe_fetch_github), or
+   - the GitHub repo URL so you can fetch it first.
+
+2) If they provide only the repo URL:
+   - Call `vibe_fetch_github` to get a bundle_path.
+   - Then call `vibe_plan_infographic` with:
+        bundle_path = that path
+        theme = "cartographer"
+        tone = "optimistic, exploratory, technical-but-accessible"
+
+3) If they provide bundle_path explicitly:
+   - Call `vibe_plan_infographic` with that bundle_path.
+
+4) Summarize the resulting spec in a concise way:
+   - projectTitle
+   - oneLiner
+   - section titles
+   - palette summary
+   - first ~120 chars of imagePrompt and animationPrompt
+
+5) Tell the user they can now run `/vibe:image` to generate the static infographic, or `/vibe:animate` to animate it with Veo.
+"""
