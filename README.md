@@ -1,199 +1,217 @@
-# VibeGraphics
-An MCP Server / Gemini CLI Extension to create modern Infographics for your project - VibeGraphics - Generated with Nano Banana and animated with Veo3
+VibeGraphics
 
-## Installation
+AI-Generated Infographics & Micro-Animations for Your GitHub Projects
+Built with Gemini, nano banana (image generation), and Veo 3 (video generation)
 
+VibeGraphics is an MCP Server + Gemini-CLI extension that transforms any GitHub repository into a themed, emotionally expressive infographic — and optionally a short animated video.
+
+Provide a GitHub URL → receive a fully generated VibeGraphic that visually explains your project’s purpose, architecture, components, and flow.
+
+Users can choose any visual vibe — space-race retro, blueprint drafting, fantasy atlas, vaporwave neon, cosmic starfield, cyberpunk grid, magazine editorial, minimalist schematic, etc.
+
+🚀 Installation
+As a Gemini-CLI extension
 gemini extensions install https://github.com/automateyournetwork/VibeGraphics.git
 
-📜 VibeGraphics
-AI-Generated Infographics & Animations From Your GitHub Projects
+As a Python MCP server
+pip install google-genai fastmcp requests
+export GEMINI_API_KEY="YOUR_KEY_HERE"
 
-VibeGraphics is an AI-powered toolkit that transforms any GitHub project into a beautiful, theme-based infographic — and optionally a short animated video — using multimodal models like Gemini, nano banana (image generation), and Veo (video).
+🌟 What VibeGraphics Does
 
-Provide a GitHub URL → receive a fully generated “VibeGraphic” that visually explains your project’s purpose, architecture, components, and flow.
+VibeGraphics uses a 4-stage AI pipeline:
 
-🌟 Key Features
-🔍 1. Project Scraping (GitHub → Bundle)
+🔍 1. GitHub Scraping (GitHub → Bundle)
 
-VibeGraphics fetches:
+VibeGraphics automatically fetches:
 
 README
 
-Source code snippets
+Source code (Python files)
 
 File structure
 
-Metadata (owner, repo, branch)
+Repository metadata (owner, repo, branch)
 
-…and packages them into a compact analysis bundle.
+Everything is packaged into a compact JSON bundle used for downstream planning.
 
 🎨 2. Infographic Design (Bundle → Spec)
 
-VibeGraphics uses large language models to create a VibeGraphic Spec, including:
+Using multimodal Gemini models, VibeGraphics generates a VibeGraphic Spec, containing:
 
-Title & one-liner
+Project title & one-liner
 
-Sections & descriptions
+Sections (with descriptions)
 
-Visual motifs (e.g., cartographer, cosmic, blueprint)
+Visual motifs
 
 Color palette
 
 Layout hints
 
-Image prompt (for rendering)
+imagePrompt (for nano banana)
 
-Animation prompt (for Veo)
+animationPrompt (for Veo)
 
-Optional voiceover script (60–90s narration)
+Optional 60–90 second voiceover script
 
-This is a design document describing the infographic.
+This spec is the “design document” describing how the infographic should look, feel, and flow.
+
+The user can specify any theme, such as:
+
+Space Race Retro
+
+Cyberpunk Neon City Grid
+
+Blueprint Technical Draft
+
+Cosmic Starfield
+
+Minimalist Diagram
+
+Editorial Magazine Layout
+
+Fantasy Atlas / Quest Map
+
+(or anything else they can imagine)
+
+If the user provides no theme, VibeGraphics will choose a neutral, coherent one automatically.
 
 🖼 3. Image Generation (Spec → Infographic)
 
-Using the spec’s imagePrompt, VibeGraphics creates a static, high-quality infographic using:
+Using the spec’s imagePrompt, VibeGraphics produces a high-resolution infographic using:
 
 nano banana (Gemini image generation)
 
-Optional guided mode using input images
+Optional guided image input
 
-The result is a single, visually consistent graphic representing your GitHub project.
+The result is a single, cohesive visual summary of the repository.
 
 🎬 4. Animation (Image → Motion Graphic)
 
-With Veo, VibeGraphics can animate the infographic with:
+Using Veo, VibeGraphics can animate the infographic with subtle motions such as:
 
-Parallax motion
+Parallax drift
 
-Section reveals
+Section highlights
 
-Camera glides
+Line or route reveals
 
-Compass moves, highlights, sparkles (theme-dependent)
+Icon pulses
 
-Produces a 5–12 second animated motion graphic, suitable for:
+Sparkles, glows, telemetry arcs
+
+Gentle camera drift (when appropriate to the theme)
+
+This produces a 5–12 second micro-animation perfect for:
+
+Social media
 
 Project landing pages
 
-Social posts
+Docs & READMEs
 
-Presentations
+Conference decks
 
-Documentation headers
+Portfolio reels
 
-🚀 How It Works (High-Level)
+🧠 How It Works — High-Level Flow
 
-Provide a GitHub URL.
+Provide a GitHub repo URL
 
-VibeGraphics scrapes and analyzes the repository.
+VibeGraphics analyzes the repo → creates a bundle
 
-A VibeGraphic Spec is generated using multimodal AI.
+Gemini generates a themed infographic spec
 
-An infographic is rendered using the spec’s image prompt.
+nano banana renders the static image
 
-Optional: the infographic is animated using Veo.
+Veo optionally animates it
 
 You receive:
 
 Spec JSON
 
-Infographic image
+Infographic image (PNG)
 
-Animated video (optional)
+Animated video (MP4)
 
-📦 Project Structure (High-Level Overview)
+📦 Project Structure
 vibegraphics/
-├── vibegraphics_mcp.py   # MCP server: GitHub fetch → Spec → Image → Animation
+├── vibegraphics_mcp.py       # MCP Server – bundle → spec → image → animation
 ├── servers/
 │   ├── requirements.txt
 │   └── run.sh
 ├── extensions/
-│   ├── GEMINI.md         # LLM-facing instructions
-│   └── commands.toml     # Slash commands for Gemini-CLI
-└── README.md             # (this file)
+│   ├── GEMINI.md             # LLM-facing behavior instructions
+│   └── commands.toml         # Gemini CLI slash commands
+└── README.md                 # (this file)
 
-🔧 Installation
-pip install google-genai fastmcp requests
-export GEMINI_API_KEY="YOUR_KEY_HERE"
+🧪 Example Usage (Conceptual)
+Generate an infographic for a repo
 
+“Make a vibe graphic for https://github.com/myuser/myproject”
 
-Or when used as a Gemini-CLI extension:
+Custom theme
 
-gemini extensions install .
+“Create a 60s space race style vibegraphic for this repo:
+https://github.com/myuser/myproject”
 
-🧠 Example Usage (Conceptual)
-Generate an infographic of a GitHub repo:
-Make a vibe graphic for https://github.com/myuser/myproject
+Full pipeline (image + animation)
 
-Custom theme:
-Create a cosmic-style vibegraphic of this repo:
-https://github.com/myuser/myproject
+“Turn this repo into a vibe graphic and animate it.”
 
-Full pipeline:
-Turn this repo into a vibegraphic and animate it:
-https://github.com/myuser/myproject
+🎨 Themes (Current & Possible)
 
-🗺 Themes (Current & Planned)
+You can request any visual style. Some popular vibes:
 
-Current default:
+Blueprint Technical Draft
 
-Cartographer – parchment maps, compass rose, routes, topographic lines
+Cyberpunk Neon
 
-Planned:
+Fantasy Atlas
+
+Retro Space Age
 
 Cosmic Starfield
 
-Blueprint
+Minimalist Modern Diagram
 
-Retro Terminal
+Vintage Magazine
 
-Futuristic Neon
+Architectural Drawing
 
-Botanical
-
-Minimalist Diagram
-
-Architectural Drafting
+Themes are open-ended and extensible.
 
 🎯 Why VibeGraphics?
 
-Software is complicated.
-Documentation is overwhelming.
-Most repos deserve something beautiful that captures the vibe of the project.
+Because code deserves beautiful storytelling.
 
 VibeGraphics:
 
-Helps developers understand your project at a glance
+Helps readers understand your project instantly
 
-Creates shareable visuals for socials, docs, and presentations
+Creates visual shareables for socials
 
-Turns abstract code into emotional, intuitive visuals
+Makes documentation more appealing
 
-Feels like branding for your GitHub project
+Turns abstract code into intuitive diagrams
+
+Gives your repo a unique “brand identity”
+
+Makes your GitHub page feel like a product launch
 
 🤝 Contributing
 
-Contributions, themes, and prompt enhancements are welcome.
-Feel free to open:
+PRs welcome!
 
-Issues
+Help with:
 
-Pull requests
+New themes
 
-Theme suggestions
+Better prompts
 
-Prompt design ideas
+Animation variations
 
-New animation patterns (e.g., neon flicker, cosmological drift)
+UX improvements
 
-📜 License
-
-MIT License – use, remix, adapt, and build your own VibeGraphics pipelines.
-
-Ready to Create Your First VibeGraphic?
-
-Just point VibeGraphics to a repo and let the generative design engine do the rest.
-
-If you need a VibeGraphic of this VibeGraphics repo, just ask:
-
-“Create a vibe graphic for this project.”
+Additional programming language support

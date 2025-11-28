@@ -10,13 +10,15 @@ Flow:
 
 2) Call `vibe_render_image_from_spec` with:
    - spec_path = what they provide
-   - out_dir = a reasonable directory (e.g. current working directory or the one they request)
-   - model = "gemini-2.5-flash-image-preview"
-   - n = 1 unless they ask for more images
+   - out_dir = a reasonable directory (current working directory or one the user requests)
+   - model = "gemini-3-flash-image-preview"
+   - n = 1 unless the user asks for multiple variations
 
 3) Show the user:
-   - Generated image path(s).
-   - Confirm that the image was generated using the cartographer VibeGraphic prompt from the spec.
+   - The generated image path(s).
+   - Confirm that the image was generated using the theme/style encoded in the VibeGraphic spec
+     (e.g., 60s space race, blueprint, cyberpunk neon, minimalist diagram — whatever the spec defines).
 
-If the spec is missing `imagePrompt`, explain what went wrong and suggest re-running `/vibe:plan`.
+If the spec is missing `imagePrompt`, explain the issue and suggest re-running `/vibe:plan`
+to regenerate a proper VibeGraphic spec.
 """

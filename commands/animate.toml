@@ -13,13 +13,20 @@ Flow:
    - spec_path = as given
    - image_path = as given
    - model = "veo-3.1-generate-preview"
-   - aspect_ratio = "16:9" unless user specifies otherwise
-   - resolution = "1080p" unless user asks for a different resolution
+   - aspect_ratio = "16:9" unless the user specifies otherwise
+   - resolution = "1080p" unless the user asks for a different resolution
 
-3) Show:
+3) Show the user:
    - Generated video path(s).
-   - A short restatement of what the animation prompt did
-     (e.g., “slow camera drift over the parchment map, section callouts animating in, compass rose rotating subtly”).
+   - A short restatement of what the animation is doing, based on the spec's animationPrompt
+     and the chosen vibe/style. For example:
+       - gentle parallax motion across the infographic
+       - section callouts fading or sliding in
+       - icons softly pulsing or rotating
+       - highlights or glows drawing attention to key areas
+     (Use language that matches the theme in the spec, such as space-race, blueprint,
+      cyberpunk neon, minimalist diagram, etc.)
 
-If `animationPrompt` is missing in the spec, suggest re-running `/vibe:plan`.
+If `animationPrompt` is missing in the spec, explain the issue and suggest re-running `/vibe:plan`
+to regenerate a complete VibeGraphic spec.
 """

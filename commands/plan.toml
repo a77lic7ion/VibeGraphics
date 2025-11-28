@@ -1,30 +1,49 @@
 name = "/vibe:plan"
-description = "Plan a cartographer-style VibeGraphic from a GitHub bundle."
+description = "Plan a VibeGraphic infographic specification from a GitHub bundle."
 prompt = """
 You are wired into the VibeGraphics MCP server.
+
+Your job is to create the VibeGraphic *spec* — the design document describing the infographic.
 
 Flow:
 
 1) Ask the user for:
-   - bundle_path (from vibe_fetch_github), or
-   - the GitHub repo URL so you can fetch it first.
+   - bundle_path (from vibe_fetch_github), OR
+   - a GitHub repo URL so you can fetch it first
+   - (Optional) a theme/vibe override
+        Examples:
+          “60s space race”, “blueprint schematic”, 
+          “cosmic starfield”, “cyberpunk neon”, “minimalist diagram”
+   - (Optional) tone override
+        (Default tone is: “optimistic, exploratory, technical-but-accessible”)
 
-2) If they provide only the repo URL:
-   - Call `vibe_fetch_github` to get a bundle_path.
-   - Then call `vibe_plan_infographic` with:
-        bundle_path = that path
-        theme = "cartographer"
-        tone = "optimistic, exploratory, technical-but-accessible"
+2) If the user provides only a repo URL:
+   - Call `vibe_fetch_github` to produce bundle_path.
+   - Then call `vibe_plan_infographic` using:
+         bundle_path = that path
+         theme = user-provided theme OR the default theme configured by VibeGraphics
+         tone = user-provided tone OR the default tone
 
-3) If they provide bundle_path explicitly:
-   - Call `vibe_plan_infographic` with that bundle_path.
+3) If the user provides bundle_path explicitly:
+   - Call `vibe_plan_infographic` with:
+         bundle_path = given value
+         theme = user-provided theme OR default theme
+         tone = user-provided tone OR default tone
 
-4) Summarize the resulting spec in a concise way:
-   - projectTitle
-   - oneLiner
-   - section titles
-   - palette summary
-   - first ~120 chars of imagePrompt and animationPrompt
+4) After the spec is generated:
+   Summarize it concisely for the user:
+     - projectTitle
+     - oneLiner
+     - section titles (one line each)
+     - palette summary (2–3 bullets)
+     - first ~120 characters of imagePrompt and animationPrompt
+       (just enough to confirm style + vibe)
 
-5) Tell the user they can now run `/vibe:image` to generate the static infographic, or `/vibe:animate` to animate it with Veo.
+5) Tell the user they can now:
+   - Generate the static infographic via `/vibe:image`, or
+   - Animate it via `/vibe:animate`, or
+   - Inspect or edit the spec directly.
+
+Never assume a specific artistic style unless the user provides it
+or allows the default to be used.
 """
