@@ -24,7 +24,7 @@ Tools:
         bundle_path: str,
         theme?: str="cartographer",
         tone?: str="optimistic, exploratory, technical-but-accessible",
-        model?: str="gemini-2.0-flash"
+        model?: str="gemini-3-pro-preview"
     )
       -> Use Gemini to design a VibeGraphic spec (layout, copy, prompts).
 
@@ -33,7 +33,7 @@ Tools:
         prompt: str,
         input_paths?: list[str]=None,
         out_dir?: str=".",
-        model?: str="gemini-2.5-flash-image-preview",
+        model?: str="gemini-3-pro-image-preview",
         n?: int=1
     )
       -> Generate image(s) using Gemini image model, optionally guided by input image(s).
@@ -57,7 +57,7 @@ Tools:
   - vibe_render_image_from_spec(
         spec_path: str,
         out_dir?: str=".",
-        model?: str="gemini-2.5-flash-image-preview",
+        model?: str="gemini-3-pro-image-preview",
         n?: int=1
     )
       -> Read VibeGraphic spec and call banana_generate() using spec['imagePrompt'].
@@ -234,7 +234,7 @@ def banana_generate(
     prompt: str,
     input_paths: Optional[List[str]] = None,
     out_dir: str = ".",
-    model: str = "gemini-2.5-flash-image-preview",
+    model: str = "gemini-3-pro-image-preview",
     n: int = 1,
 ) -> Dict[str, Any]:
     """
@@ -604,7 +604,7 @@ def vibe_plan_infographic(
     bundle_path: str,
     theme: str = "cartographer",
     tone: str = "optimistic, exploratory, technical-but-accessible",
-    model: str = "gemini-2.0-flash",
+    model: str = "gemini-3-pro-preview",
 ) -> Dict[str, Any]:
     """
     VibeGraphics stage 2: Turn a repo bundle into a VibeGraphic design spec.
@@ -807,7 +807,7 @@ Constraints:
 def vibe_render_image_from_spec(
     spec_path: str,
     out_dir: str = ".",
-    model: str = "gemini-2.5-flash-image-preview",
+    model: str = "gemini-3-pro-image-preview",
     n: int = 1,
 ) -> Dict[str, Any]:
     """
