@@ -1,217 +1,140 @@
-VibeGraphics
+# VibeGraphics - Infographic Creation Application
 
-AI-Generated Infographics & Micro-Animations for Your GitHub Projects
-Built with Gemini, nano banana (image generation), and Veo 3 (video generation)
+AI-Generated Infographics & Visuals for Your GitHub Projects and Custom Content  
+Built with Gemini, nano banana (image generation)
 
-VibeGraphics is an MCP Server + Gemini-CLI extension that transforms any GitHub repository into a themed, emotionally expressive infographic — and optionally a short animated video.
+## 🎨 **New: GUI Application!**
 
-Provide a GitHub URL → receive a fully generated VibeGraphic that visually explains your project’s purpose, architecture, components, and flow.
+VibeGraphics now features a modern React/Vite web application for creating stunning infographics without writing any code.
 
-Users can choose any visual vibe — space-race retro, blueprint drafting, fantasy atlas, vaporwave neon, cosmic starfield, cyberpunk grid, magazine editorial, minimalist schematic, etc.
+### Features
 
-🚀 Installation
-As a Gemini-CLI extension
+- 📝 **Dual Input Modes**: Create from GitHub repositories OR manual text input
+- 🎨 **Template Gallery**: Browse and customize 8+ professional templates
+- ✏️ **Rich Editor**: Customize text, colors, and layouts
+- 🖼️ **Logo Upload**: Add your branding to infographics
+- 📄 **Multi-Page Support**: Create series of infographics
+- 💾 **Multiple Export Formats**: PNG, SVG, PDF
+- 🤖 **AI-Powered**: Automatic design using Google Gemini
+
+### Installation
+
+#### Prerequisites
+- Python 3.8+
+- Node.js 16+
+- Gemini API Key ([Get one here](https://aistudio.google.com/apikey))
+
+#### Quick Start
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/automateyournetwork/VibeGraphics.git
+   cd VibeGraphics
+   ```
+   - Click "Save"
+
+### Usage
+
+#### Option A: GitHub to Infographic
+
+1. Click "From GitHub" on the homepage
+2. Enter a GitHub repository URL
+3. Click "Fetch Repository"
+4. Choose a template from the gallery
+5. Click "Generate Infographic"
+6. Review and download your infographic
+
+#### Option B: Manual Creation
+
+1. Click "Manual Input" on the homepage
+2. Enter your title and content
+3. Add optional sections
+4. Choose a template from the gallery
+5. Click "Generate Infographic"
+6. Review and download
+
+### Available Templates
+
+- **Tech Blueprint**: Technical diagram with blueprint aesthetics
+- **Space Age Retro**: 1960s space race inspired design
+- **Cyberpunk Neon**: Futuristic neon grid design
+- **Minimalist Modern**: Clean, professional layout
+- **Fantasy Atlas**: Quest map and fantasy cartography
+- **Business Professional**: Corporate presentation style
+- **Education Friendly**: Clear, educational layout
+- **Marketing Vibrant**: Eye-catching marketing design
+
+### Export Formats
+
+- **PNG**: High-resolution raster image
+- **PDF**: Print-ready document format
+- (SVG support coming soon)
+
+### Architecture
+
+```
+VibeGraphics/
+├── backend/              # Flask REST API
+│   ├── api_server.py    # Main API server
+│   └── requirements.txt # Python dependencies
+├── frontend/            # React/Vite GUI
+│   ├── src/
+│   │   ├── components/  # UI components
+│   │   ├── services/    # API client
+│   │   └── store/       # State management
+│   └── package.json
+├── servers/             # Original MCP server
+│   └── vibegraphics_mcp.py
+├── install.bat         # Installation script
+└── start.bat           # Startup script
+```
+
+### Troubleshooting
+
+**Backend not starting:**
+- Ensure Python is installed and in PATH
+- Check that port 5000 is available
+- Install dependencies: `cd backend && pip install -r requirements.txt`
+
+**Frontend not starting:**
+- Ensure Node.js is installed
+- Check that port 5173 is available
+- Install dependencies: `cd frontend && npm install`
+
+**API key errors:**
+- Verify your Gemini API key is valid
+- Check Settings modal shows "Connected" status
+- Ensure you have API credits available
+
+### Original CLI Extension
+
+The original Gemini CLI extension is still available in the `servers/` directory. See the legacy documentation below for CLI usage.
+
+---
+
+## 🚀 Original Installation (CLI Extension)
+
+```bash
 gemini extensions install https://github.com/automateyournetwork/VibeGraphics.git
+```
 
-As a Python MCP server
-pip install google-genai fastmcp requests
-export GEMINI_API_KEY="YOUR_KEY_HERE"
+## Contributing
 
-🌟 What VibeGraphics Does
+PRs welcome! Areas for contribution:
+- New template designs
+- Additional export formats
+- UI/UX improvements
+- Multi-language support
 
-VibeGraphics uses a 4-stage AI pipeline:
+## License
 
-🔍 1. GitHub Scraping (GitHub → Bundle)
+Apache 2.0 - See LICENSE file
 
-VibeGraphics automatically fetches:
+## Credits
 
-README
-
-Source code (Python files)
-
-File structure
-
-Repository metadata (owner, repo, branch)
-
-Everything is packaged into a compact JSON bundle used for downstream planning.
-
-🎨 2. Infographic Design (Bundle → Spec)
-
-Using multimodal Gemini models, VibeGraphics generates a VibeGraphic Spec, containing:
-
-Project title & one-liner
-
-Sections (with descriptions)
-
-Visual motifs
-
-Color palette
-
-Layout hints
-
-imagePrompt (for nano banana)
-
-animationPrompt (for Veo)
-
-Optional 60–90 second voiceover script
-
-This spec is the “design document” describing how the infographic should look, feel, and flow.
-
-The user can specify any theme, such as:
-
-Space Race Retro
-
-Cyberpunk Neon City Grid
-
-Blueprint Technical Draft
-
-Cosmic Starfield
-
-Minimalist Diagram
-
-Editorial Magazine Layout
-
-Fantasy Atlas / Quest Map
-
-(or anything else they can imagine)
-
-If the user provides no theme, VibeGraphics will choose a neutral, coherent one automatically.
-
-🖼 3. Image Generation (Spec → Infographic)
-
-Using the spec’s imagePrompt, VibeGraphics produces a high-resolution infographic using:
-
-nano banana (Gemini image generation)
-
-Optional guided image input
-
-The result is a single, cohesive visual summary of the repository.
-
-🎬 4. Animation (Image → Motion Graphic)
-
-Using Veo, VibeGraphics can animate the infographic with subtle motions such as:
-
-Parallax drift
-
-Section highlights
-
-Line or route reveals
-
-Icon pulses
-
-Sparkles, glows, telemetry arcs
-
-Gentle camera drift (when appropriate to the theme)
-
-This produces a 5–12 second micro-animation perfect for:
-
-Social media
-
-Project landing pages
-
-Docs & READMEs
-
-Conference decks
-
-Portfolio reels
-
-🧠 How It Works — High-Level Flow
-
-Provide a GitHub repo URL
-
-VibeGraphics analyzes the repo → creates a bundle
-
-Gemini generates a themed infographic spec
-
-nano banana renders the static image
-
-Veo optionally animates it
-
-You receive:
-
-Spec JSON
-
-Infographic image (PNG)
-
-Animated video (MP4)
-
-📦 Project Structure
-vibegraphics/
-├── vibegraphics_mcp.py       # MCP Server – bundle → spec → image → animation
-├── servers/
-│   ├── requirements.txt
-│   └── run.sh
-├── extensions/
-│   ├── GEMINI.md             # LLM-facing behavior instructions
-│   └── commands.toml         # Gemini CLI slash commands
-└── README.md                 # (this file)
-
-🧪 Example Usage (Conceptual)
-Generate an infographic for a repo
-
-“Make a vibe graphic for https://github.com/myuser/myproject”
-
-Custom theme
-
-“Create a 60s space race style vibegraphic for this repo:
-https://github.com/myuser/myproject”
-
-Full pipeline (image + animation)
-
-“Turn this repo into a vibe graphic and animate it.”
-
-🎨 Themes (Current & Possible)
-
-You can request any visual style. Some popular vibes:
-
-Blueprint Technical Draft
-
-Cyberpunk Neon
-
-Fantasy Atlas
-
-Retro Space Age
-
-Cosmic Starfield
-
-Minimalist Modern Diagram
-
-Vintage Magazine
-
-Architectural Drawing
-
-Themes are open-ended and extensible.
-
-🎯 Why VibeGraphics?
-
-Because code deserves beautiful storytelling.
-
-VibeGraphics:
-
-Helps readers understand your project instantly
-
-Creates visual shareables for socials
-
-Makes documentation more appealing
-
-Turns abstract code into intuitive diagrams
-
-Gives your repo a unique “brand identity”
-
-Makes your GitHub page feel like a product launch
-
-🤝 Contributing
-
-PRs welcome!
-
-Help with:
-
-New themes
-
-Better prompts
-
-Animation variations
-
-UX improvements
-
-Additional programming language support
+Built with:
+- [Google Gemini](https://ai.google.dev/) - AI model
+- [React](https://react.dev/) - UI framework
+- [Vite](https://vitejs.dev/) - Build tool
+- [Flask](https://flask.palletsprojects.com/) - Backend API
+- [Zustand](https://github.com/pmndrs/zustand) - State management

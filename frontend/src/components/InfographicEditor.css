@@ -1,0 +1,103 @@
+.infographic-editor {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.editor-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.editor-header svg {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.editor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: var(--spacing-lg);
+}
+
+.spec-panel,
+.preview-panel {
+  padding: var(--spacing-lg);
+}
+
+.spec-panel h3,
+.preview-panel h3 {
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border);
+}
+
+.spec-content {
+  overflow-y: auto;
+max-height: 70vh;
+}
+
+.spec-field {
+  margin-bottom: var(--spacing-lg);
+}
+
+.spec-field label {
+  display: block;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.spec-field p {
+  color: var(--text-muted);
+}
+
+.spec-field ul {
+  margin-left: var(--spacing-md);
+  color: var(--text-muted);
+}
+
+.prompt-text {
+  font-size: 0.875rem;
+  padding: var(--spacing-md);
+  background: var(--bg-input);
+  border-radius: var(--radius-md);
+}
+
+.image-preview {
+  text-align: center;
+}
+
+.image-preview img {
+  max-width: 100%;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--shadow-lg);
+}
+
+.image-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+}
+
+.placeholder-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: var(--text-muted);
+  gap: var(--spacing-md);
+}
+
+.placeholder-icon {
+  opacity: 0.3;
+}
+
+@media (max-width: 1024px) {
+  .editor-grid {
+    grid-template-columns: 1fr;
+  }
+}
