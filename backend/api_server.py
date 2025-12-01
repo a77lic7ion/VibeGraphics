@@ -171,6 +171,13 @@ def research_topic():
             research_summary += f"URL: {res['href']}\n"
             research_summary += f"Summary: {res['body']}\n\n"
             
+    except ImportError:
+        print("Warning: duckduckgo-search not installed or failed to import")
+        research_summary = f"Research unavailable for: {topic}\n(duckduckgo-search library missing)\n"
+    except Exception as e:
+        print(f"Research error: {str(e)}")
+        research_summary = f"Research failed for: {topic}\nError: {str(e)}\n"
+            
         # Create bundle (reusing structure for compatibility)
         bundle = {
             "topic": topic,

@@ -1,19 +1,23 @@
 .app {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-.app-container {
-  display: flex;
-  flex: 1;
   overflow: hidden;
 }
 
-.app-main {
+.main-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.content-area {
   flex: 1;
   overflow-y: auto;
   padding: var(--spacing-xl);
+  position: relative;
+  height: 100%;
 }
 
 /* Error Banner */

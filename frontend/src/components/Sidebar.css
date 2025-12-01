@@ -1,10 +1,11 @@
 .sidebar {
   width: 250px;
-  min-height: calc(100vh - 80px);
+  height: 100%;
   padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--border);
+  background: var(--bg-card); /* Ensure background is set */
 }
 
 .sidebar-nav {
