@@ -193,7 +193,9 @@ def research_topic():
         
     except Exception as e:
         print(f"Research error: {str(e)}")
-        return jsonify({"ok": False, "error": str(e)}), 500
+        response = jsonify({"ok": False, "error": str(e)})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 500
 
 @app.route('/api/plan/generate', methods=['POST'])
 def generate_plan():
